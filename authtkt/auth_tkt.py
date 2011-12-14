@@ -136,7 +136,8 @@ class AuthTktCookiePlugin(object):
             new_cookie_value = ticket.cookie_value()
 
             cur_domain = environ.get('HTTP_HOST', environ.get('SERVER_NAME'))
-            wild_domain = '.' + cur_domain
+            wild_domain = cur_domain[cur_domain.find('.'):]
+            #wild_domain = '.' + cur_domain
             if old_cookie_value != new_cookie_value:
                 # return a set of Set-Cookie headers
                 return self._get_cookies(environ, new_cookie_value, max_age)
